@@ -8,3 +8,9 @@ These tools could be used during Teleconference (see https://www.ncbi.nlm.nih.go
 However, these tools may not be readily available or may not be scalable with changing screen size or may require participants to be in a certain position for prolonged periods of time.
 With Posenet, we can potentially eliminate the need for tools to measure range of motion, and it can be scalable for all screen sizes. Additionally, this tool allows the healthcare professional to measure range of motion while the client is relaxed. 
 
+# npm install
+- to install node modules required for the app
+# npm run watch
+- to convert main.js into bundle.js
+# npm start
+- to start the app on a local machine
