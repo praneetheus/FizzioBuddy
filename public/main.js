@@ -104,7 +104,7 @@ const pnet = {
             // these have to be in order
             let elbowAngleReq = ['rightShoulder', 'rightElbow', 'rightWrist'];
             let shoulderAngle;
-            let shoulderAngleReq = [];
+            let shoulderAngleReq = ['leftShoulder', 'rightShoulder', 'rightElbow'];
             for (let i = 0; i < keypoints.length; i++) {
                 const keypoint = keypoints[i];
                 if (keypoint.score < minConfidence) {
@@ -118,15 +118,26 @@ const pnet = {
                 reqPartList.push(keypoint.part);
                 // console.log(reqPartList);
 
-                if (hasSubArray(reqPartList, elbowAngleReq)) {
-                  // console.log("i am running")
-                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
-                  let p1index = parts.findIndex(p => p.part == "rightWrist")
-                  let centerIndex = parts.findIndex(p => p.part == "rightElbow")
-                  elbowAngle = calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]);
-                  // console.log(elbowAngle);
+                // if (hasSubArray(reqPartList, elbowAngleReq)) {
+                //   // console.log("i am running")
+                //   let p0index = parts.findIndex(p => p.part == "rightShoulder")
+                //   let centerIndex = parts.findIndex(p => p.part == "rightElbow")
+                //   let p1index = parts.findIndex(p => p.part == "rightWrist")
+                //   elbowAngle = calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]);
+                //   console.log(elbowAngle);
+                //   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
+                // }
+
+                if (hasSubArray(reqPartList, shoulderAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "rightShoulder")
+                  let p1index = parts.findIndex(p => p.part == "rightElbow")
+                  shoulderAngle = calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]);
+                  console.log(shoulderAngle);
                   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
                 }
+
+
                 // console.log(parts); 
                 // console.log(ctx);
                 drawPoint(ctx, y * scale, x * scale, 3, color, keypoint.part);
