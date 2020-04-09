@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>FizzioBuddy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Load TensorFlow.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script> -->
+    <!-- Load Posenet -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="main.css" rel="stylesheet">
+    <!-- <script src="poseNet.js.js"></script> -->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row h-10 w-100">
+            <div class="col">
+                <button id="poseNetButton">PoseNet Filter</button>
+                <!-- disable does not work yet -->
+                <button id="disablePosenet">Disable PoseNet</button>
+            </div>
+        </div>
+        <div class="row h-90 w-100">
+            <div class="col-12 col-sm-6 d-flex justify-content-center">
+                <div class="embed-responsive embed-responsive-4by3">
+                  <video id="video" class="embed-responsive-item" playsinline style=" -moz-transform: scaleX(-1);
+                  -o-transform: scaleX(-1);
+                  -webkit-transform: scaleX(-1);
+                  transform: scaleX(-1);
+                  ">
+                  </video>
+                  <canvas id="output" class="embed-responsive-item" style="position: absolute; top: 0; left: 0; z-index: 1;"></canvas>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 d-flex justify-content-center">
+                <div id="peerDiv" class="embed-responsive embed-responsive-16by9">
+                  <video id="peerVideo" class="embed-responsive-item" playsinline style=" -moz-transform: scaleX(-1);
+                  -o-transform: scaleX(-1);
+                  -webkit-transform: scaleX(-1);
+                  transform: scaleX(-1);
+                  ">
+                  </video>  
+                  <canvas id="peerOutput" class="embed-responsive-item" style="position: absolute; top: 0; left: 0; z-index: 1;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="bundle.js"></script>
+</body>
+
+</html>
