@@ -51236,6 +51236,7 @@ const poseNetButton = document.querySelector('#poseNetButton')
 const disablePosenetButton = document.querySelector('#disablePosenet')
 let client = {}
 let disablePosenet = false; 
+let pi = Math.PI;
 // let videoWidth = video.videoWidth;
 // let videoHeight = video.videoHeight;
 
@@ -51335,6 +51336,8 @@ const pnet = {
             let elbowAngleReq = ['rightShoulder', 'rightElbow', 'rightWrist'];
             let shoulderAngle;
             let shoulderAngleReq = ['leftShoulder', 'rightShoulder', 'rightElbow'];
+            let cervicalAngel;
+            let cervicalAngelReq = ['nose', 'leftShoulder', 'rightShoulder'];
             for (let i = 0; i < keypoints.length; i++) {
                 const keypoint = keypoints[i];
                 if (keypoint.score < minConfidence) {
@@ -51348,25 +51351,36 @@ const pnet = {
                 reqPartList.push(keypoint.part);
                 // console.log(reqPartList);
 
-                // if (hasSubArray(reqPartList, elbowAngleReq)) {
-                //   // console.log("i am running")
-                //   let p0index = parts.findIndex(p => p.part == "rightShoulder")
-                //   let centerIndex = parts.findIndex(p => p.part == "rightElbow")
-                //   let p1index = parts.findIndex(p => p.part == "rightWrist")
-                //   elbowAngle = calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]);
-                //   console.log(elbowAngle);
-                //   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
-                // }
-
-                if (hasSubArray(reqPartList, shoulderAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
-                  let centerIndex = parts.findIndex(p => p.part == "rightShoulder")
-                  let p1index = parts.findIndex(p => p.part == "rightElbow")
-                  shoulderAngle = calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]);
-                  console.log(shoulderAngle);
+                if (hasSubArray(reqPartList, elbowAngleReq)) {
+                  // console.log("i am running")
+                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "rightElbow")
+                  let p1index = parts.findIndex(p => p.part == "rightWrist")
+                  elbowAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  elbowAngle = elbowAngle * (180/pi) 
+                  document.getElementById("elbow").innerHTML = Math.round(elbowAngle*100)/100;
+                  console.log(elbowAngle);
                   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
                 }
 
+                if (hasSubArray(reqPartList, cervicalAngelReq)) {
+                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "nose")
+                  let p1index = parts.findIndex(p => p.part == "rightShoulder")
+                  cervicalAngel = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  cervicalAngel = cervicalAngel * (180/pi) 
+                  document.getElementById("elbow").innerHTML = Math.round(cervicalAngel*100)/100;
+                  console.log(cervicalAngel);
+                }
+
+                // if (hasSubArray(reqPartList, shoulderAngleReq)) {
+                //   let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                //   let centerIndex = parts.findIndex(p => p.part == "rightShoulder")
+                //   let p1index = parts.findIndex(p => p.part == "rightElbow")
+                //   shoulderAngle = calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]);
+                //   console.log(shoulderAngle);
+                //   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
+                // }
 
                 // console.log(parts); 
                 // console.log(ctx);
@@ -51415,21 +51429,12 @@ const pnet = {
 
 // calculate angle
 // https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
-// p0, p1, c = {x, y}
-function calculateAngle(p0,p1,center) {
-  // let p0c = Math.pow(c.x-p0.x,2) + Math.pow(c.y-p0.y,2); // p0->c (b)   
-  // let p1c = Math.pow(c.x-p1.x,2) + Math.pow(c.y-p1.y,2); // p1->c (a)
-  // let p0p1 = Math.pow(p1.x-p0.x,2) + Math.pow(p1.y-p0.y,2); // p0->p1 (c)
-  
-  let b = Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2);
-  let a = Math.pow(p1.x - center.x, 2) + Math.pow(p1.y - center.y, 2);
-  let c = Math.pow(center.x - p0.x, 2) + Math.pow(center.y - p0.y, 2);
-
-  return Math.acos((a + b - c)/Math.sqrt(4*a*b));
-  // return Math.acos((p1c*p1c+p0c*p0c-p0p1*p0p1)/(2*p1c*p0c));
+function calculateAngle(p0,p1,p2) {
+  var b = Math.pow(p1.x-p0.x,2) + Math.pow(p1.y-p0.y,2),
+      a = Math.pow(p1.x-p2.x,2) + Math.pow(p1.y-p2.y,2),
+      c = Math.pow(p2.x-p0.x,2) + Math.pow(p2.y-p0.y,2);
+  return Math.acos( (a+b-c) / Math.sqrt(4*a*b) );
 }
-
-
 
 //get stream
 navigator.mediaDevices.getUserMedia({ video: true, audio: true })
