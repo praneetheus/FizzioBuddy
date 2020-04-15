@@ -1,3 +1,4 @@
+// Global variables && constants 
 const posenet = require('@tensorflow-models/posenet');
 let Peer = require('simple-peer'); 
 let socket = io()
@@ -7,8 +8,55 @@ const disablePosenetButton = document.querySelector('#disablePosenet')
 let client = {}
 let disablePosenet = false; 
 let pi = Math.PI;
-// let videoWidth = video.videoWidth;
-// let videoHeight = video.videoHeight;
+
+// getting start & stop buttons
+const shoulderStartBtn = document.querySelector('#shoulder_start')
+const shoulderStopBtn = document.querySelector('#shoulder_stop')
+
+const elbowStartBtn = document.querySelector('#elbow_start')
+const elbowStopBtn = document.querySelector('#elbow_stop')
+
+const cervicalStartBtn = document.querySelector('#cervical_start')
+const cervicalStopBtn = document.querySelector('#cervical_stop')
+
+// getting start & stop end
+
+// getting range of motion value from span text fields
+// for neck
+let neckStartVal;
+cervicalStartBtn.addEventListener('click', () => {
+  neckStartVal = document.getElementById('cervical').innerHTML;
+})
+
+cervicalStopBtn.addEventListener('click', () => {
+  let neckStoptVal = document.getElementById('cervical').innerHTML;
+  console.log(Math.abs(neckStartVal - neckStoptVal));
+})
+
+// for shoulder
+let shoulderStartVal;
+shoulderStartBtn.addEventListener('click', () => {
+  shoulderStartVal = document.getElementById('shoulder').innerHTML;
+})
+
+shoulderStopBtn.addEventListener('click', () => {
+  let shoulderStoptVal = document.getElementById('shoulder').innerHTML;
+  console.log(Math.abs(shoulderStartVal - shoulderStoptVal));
+})
+
+// for elbow
+let elbowStartVal;
+elbowStartBtn.addEventListener('click', () => {
+  elbowStartVal = document.getElementById('elbow').innerHTML;
+})
+
+elbowStopBtn.addEventListener('click', () => {
+  let elbowStoptVal = document.getElementById('elbow').innerHTML;
+  console.log(Math.abs(elbowStartVal - elbowStoptVal));
+})
+
+// end getting span text fields
+
 
 let net;
 let color = 'red';
@@ -16,10 +64,11 @@ let color = 'red';
 const pnet = {
     algorithm: 'single-pose',
     input: {
-      architecture: 'MobileNetV1',
-      outputStride: 16,
-      inputResolution: 513,
-      multiplier: 0.50,
+      // architecture: 'MobileNetV1',
+      architecture: 'ResNet50',
+      outputStride: 32,
+      inputResolution: 257,
+      // multiplier: 1.0,
       quantBytes: 2
     },
     singlePoseDetection: {
@@ -105,7 +154,7 @@ const pnet = {
             // these have to be in order
             let elbowAngleReq = ['rightShoulder', 'rightElbow', 'rightWrist'];
             let shoulderAngle;
-            let shoulderAngleReq = ['leftShoulder', 'rightShoulder', 'rightElbow'];
+            let shoulderAngleReq = ['rightShoulder', 'rightElbow', 'rightHip'];
             let cervicalAngel;
             let cervicalAngelReq = ['nose', 'leftShoulder', 'rightShoulder'];
             for (let i = 0; i < keypoints.length; i++) {
@@ -129,7 +178,7 @@ const pnet = {
                   elbowAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   elbowAngle = elbowAngle * (180/pi) 
                   document.getElementById("elbow").innerHTML = Math.round(elbowAngle*100)/100;
-                  console.log(elbowAngle);
+                  // console.log(elbowAngle);
                   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
                 }
 
@@ -140,17 +189,17 @@ const pnet = {
                   cervicalAngel = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   cervicalAngel = cervicalAngel * (180/pi) 
                   document.getElementById("cervical").innerHTML = Math.round(cervicalAngel*100)/100;
-                  console.log(cervicalAngel);
+                  // console.log(cervicalAngel);
                 }
 
                 if (hasSubArray(reqPartList, shoulderAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let p0index = parts.findIndex(p => p.part == "rightElbow")
                   let centerIndex = parts.findIndex(p => p.part == "rightShoulder")
-                  let p1index = parts.findIndex(p => p.part == "rightElbow")
+                  let p1index = parts.findIndex(p => p.part == "rightHip")
                   shoulderAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   shoulderAngle = shoulderAngle * (180/pi) 
                   document.getElementById("shoulder").innerHTML = Math.round(shoulderAngle*100)/100;
-                  console.log(shoulderAngle);
+                  // console.log(shoulderAngle);
                 }
 
                 // console.log(parts); 
