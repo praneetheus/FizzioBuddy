@@ -11,7 +11,7 @@ io.on('connection', function (socket) {
     socket.on("NewClient", function () {
         if (clients < 2) {
             if (clients == 1) {
-                // will call function makepeer
+                // will call function makePeer
                 this.emit('CreatePeer')
             }
         }
@@ -19,8 +19,11 @@ io.on('connection', function (socket) {
             this.emit('SessionActive')
         clients++;
     })
+    // calls sendOffer (see below)
     socket.on('Offer', SendOffer)
+    // calls sendAnswer (see below)
     socket.on('Answer', SendAnswer)
+    // calls Disconnect (see below)
     socket.on('disconnect', Disconnect)
 })
 

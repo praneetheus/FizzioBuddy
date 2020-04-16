@@ -17,8 +17,10 @@
     <div class="container-fluid">
         <div class="row h-10 w-100">
             <div class="col">
-                <button id="poseNetButton">PoseNet Filter</button>
+                <button id="poseNetButton">PoseNet (Less accurate, faster)</button>
+                <button id="resNetButton">resNet (More accurate; slow)</button>
                 <!-- disable does not work yet -->
+                <!-- breaks if you remove diable button without removing event listeners in main.js -->
                 <button id="disablePosenet">Disable PoseNet</button>
             </div>
         </div>

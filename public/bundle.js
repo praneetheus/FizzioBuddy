@@ -51238,6 +51238,8 @@ const disablePosenetButton = document.querySelector('#disablePosenet')
 let client = {}
 let disablePosenet = false; 
 let pi = Math.PI;
+let resNetRunning = false;
+let MobileNetRunning = false; 
 
 // getting start & stop buttons
 const shoulderStartBtn = document.querySelector('#shoulder_start')
@@ -51287,18 +51289,17 @@ elbowStopBtn.addEventListener('click', () => {
 
 // end getting span text fields
 
-
 let net;
 let color = 'red';
 
 const pnet = {
     algorithm: 'single-pose',
     input: {
-      // architecture: 'MobileNetV1',
-      architecture: 'ResNet50',
-      outputStride: 32,
+      architecture: 'MobileNetV1',
+      // architecture: 'ResNet50',
+      outputStride: 16,
       inputResolution: 257,
-      // multiplier: 1.0,
+      multiplier: 1.0,
       quantBytes: 2
     },
     singlePoseDetection: {
@@ -51314,32 +51315,33 @@ const pnet = {
     net: null,
   };
 
-  pnet.net = ({
-    architecture: pnet.input.architecture,
-    outputStride: pnet.input.outputStride,
-    inputResolution: pnet.input.inputResolution,
-    multiplier: pnet.input.multiplier,
-    quantBytes: pnet.input.quantBytes
-  });
-
-
   function detectPoseInRealTime(vid, net) {
-    if (!disablePosenet) {
-      const canvas = document.getElementById('peerOutput');
-      const vi = document.getElementById('peerVideo');
-      // document.getElementById("pee").style.color = "blue";
-      vi.style.display = "none";
-      const ctx = canvas.getContext('2d');
-      const videoWidth = vi.videoWidth;
-      const videoHeight = vi.videoHeight;
-      vi.width = videoWidth;
-      vi.height = videoHeight;
+    const canvas = document.getElementById('peerOutput');
+    const vi = document.getElementById('peerVideo');
+    // document.getElementById("pee").style.color = "blue";
+    vi.style.display = "none";
+    const ctx = canvas.getContext('2d');
+    const videoWidth = vi.videoWidth;
+    const videoHeight = vi.videoHeight;
+    vi.width = videoWidth;
+    vi.height = videoHeight;
 
-      const flipPoseHorizontal = true;
+    const flipPoseHorizontal = true;
+  
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+
+    // if (disablePosenet && pnet.net == null) {
+    //   // ctx.clearRect(0, 0, videoWidth, videoHeight);
+
+    //   ctx.save();
+    //   ctx.scale(-1, 1);
+    //   ctx.translate(-videoWidth, 0);
+    //   ctx.drawImage(vid, 0, 0, videoWidth, videoHeight);
+    //   ctx.restore();
+    // }
     
-      canvas.width = videoWidth;
-      canvas.height = videoHeight;
-    
+    if (!disablePosenet) {
       async function poseDetectionFrame() {
         let poses = [];
         let minPoseConfidence;
@@ -51347,6 +51349,9 @@ const pnet = {
     
         switch (pnet.algorithm) {
           case 'single-pose':
+            if (pnet.net == null) {
+              break;
+            }
             const pose = await pnet.net.estimatePoses(vid, {
               flipHorizontal: flipPoseHorizontal,
               decodingMethod: 'single-person'
@@ -51358,7 +51363,6 @@ const pnet = {
             minPartConfidence = +pnet.singlePoseDetection.minPartConfidence;
             break;
         }
-        // console.log('just after switch')
         ctx.clearRect(0, 0, videoWidth, videoHeight);
         // ctx.drawImage(vid, 0, 0, videoWidth, videoHeight);
         // ctx.restore();
@@ -51369,7 +51373,7 @@ const pnet = {
           ctx.drawImage(vid, 0, 0, videoWidth, videoHeight);
           ctx.restore();
         }
-
+  
         // needed to calculate angles
         // https://stackoverflow.com/questions/34151834/javascript-array-contains-includes-sub-array
         function hasSubArray(master, sub) {
@@ -51399,7 +51403,7 @@ const pnet = {
                 parts.push({part: keypoint.part, x: x, y: y});
                 reqPartList.push(keypoint.part);
                 // console.log(reqPartList);
-
+  
                 if (hasSubArray(reqPartList, elbowAngleReq)) {
                   // console.log("i am running")
                   let p0index = parts.findIndex(p => p.part == "rightShoulder")
@@ -51411,7 +51415,7 @@ const pnet = {
                   // console.log(elbowAngle);
                   // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
                 }
-
+  
                 if (hasSubArray(reqPartList, cervicalAngelReq)) {
                   let p0index = parts.findIndex(p => p.part == "leftShoulder")
                   let centerIndex = parts.findIndex(p => p.part == "nose")
@@ -51421,7 +51425,7 @@ const pnet = {
                   document.getElementById("cervical").innerHTML = Math.round(cervicalAngel*100)/100;
                   // console.log(cervicalAngel);
                 }
-
+  
                 if (hasSubArray(reqPartList, shoulderAngleReq)) {
                   let p0index = parts.findIndex(p => p.part == "rightElbow")
                   let centerIndex = parts.findIndex(p => p.part == "rightShoulder")
@@ -51431,7 +51435,7 @@ const pnet = {
                   document.getElementById("shoulder").innerHTML = Math.round(shoulderAngle*100)/100;
                   // console.log(shoulderAngle);
                 }
-
+  
                 // console.log(parts); 
                 // console.log(ctx);
                 drawPoint(ctx, y * scale, x * scale, 3, color, keypoint.part);
@@ -51446,7 +51450,7 @@ const pnet = {
             // ctx.textAlign = "start";
             ctx.fillText(part, x, y);
         }
-
+  
         poses.forEach(({score, keypoints}) => {
           if (score >= minPoseConfidence) {
             if (pnet.output.showPoints) {
@@ -51456,23 +51460,32 @@ const pnet = {
         });
         requestAnimationFrame(poseDetectionFrame);
       }
-    
       poseDetectionFrame();
     }
+  
   }
 
   async function loadPoseNet(vid) {
     //   vid = returnPeerVideo();
-    if (!disablePosenet) {
-      pnet.net = await posenet.load({
-        architecture: pnet.input.architecture,
-        outputStride: pnet.input.outputStride,
-        inputResolution: pnet.input.inputResolution,
-        multiplier: pnet.input.multiplier,
-        quantBytes: pnet.input.quantBytes
-      });
-    }
-  
+    pnet.net = await posenet.load({
+      architecture: pnet.input.architecture,
+      outputStride: pnet.input.outputStride,
+      inputResolution: pnet.input.inputResolution,
+      multiplier: pnet.input.multiplier,
+      quantBytes: pnet.input.quantBytes
+    });
+    
+    detectPoseInRealTime(vid, net);
+  }
+
+  async function loadResNet(vid) {
+    pnet.net = await posenet.load({
+      architecture: 'ResNet50',
+      outputStride: 16,
+      inputResolution: 257,
+      multiplier: null,
+      quantBytes: 2
+    });
     detectPoseInRealTime(vid, net);
   }
 //   end posenet
@@ -51503,24 +51516,51 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             })
             return peer
         }
+      
+        resNetButton.addEventListener('click', () => {
+          console.log("Setting up resNet");
+          if (!MobileNetRunning) {
+            disablePosenet = false;
+            resNetRunning = true; 
+            const vivi = returnPeerVideo();
+
+            // loads reznet
+            loadResNet(vivi)
+
+          } else {
+            console.log("Error: MobileNet is already running")
+          }
+        })
+
         poseNetButton.addEventListener('click', () => {
-          // console.log('I can click');
-          disablePosenet = false;
-          const vivi = returnPeerVideo();
-          // console.log(typeof(vivi));
-          loadPoseNet(vivi);
+          console.log('Setting up MobileNet');
+          if (!resNetRunning) {
+            MobileNetRunning = true; 
+            disablePosenet = false;
+            
+            const vivi = returnPeerVideo();
+            loadPoseNet(vivi)
+          } else {
+            console.log("Error: ResNet is already running")
+          }
         })
 
         disablePosenetButton.addEventListener('click', () => {
-          disablePosenet = true; 
+          disablePosenet = true;
+          pnet.net = null;  
+          if (resNetRunning) {
+            resNetRunning = false;
+          }
+          if (MobileNetRunning) {
+            MobileNetRunning = false; 
+          }
         })
 
         function returnPeerVideo() {
             let video = document.getElementById('peerVideo');
-            video.play();
+            // video.play();
             return video;
           }
-
 
         //for peer of type init
         function MakePeer() {
@@ -51558,20 +51598,21 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 
         function SessionActive() {
             document.write('Session Active. Please come back later')
+            // can add queueing here...
         }
 
         function RemovePeer() {
             document.getElementById("peerVideo").remove();
-            // document.getElementById("muteText").remove();
+            document.getElementById("peerOutput").remove();
             if (client.peer) {
                 client.peer.destroy()
             }
         }
-
+        
+        socket.on('CreatePeer', MakePeer)
+        socket.on('SessionActive', SessionActive)
         socket.on('BackOffer', FrontAnswer)
         socket.on('BackAnswer', SignalAnswer)
-        socket.on('SessionActive', SessionActive)
-        socket.on('CreatePeer', MakePeer)
         socket.on('Disconnect', RemovePeer)
 
     })
