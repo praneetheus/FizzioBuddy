@@ -12,16 +12,25 @@
     <link href="main.css" rel="stylesheet">
     <!-- <script src="poseNet.js.js"></script> -->
 </head>
-
-<body>
-    <div class="container-fluid">
+<!-- style="background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(176,174,174,1) 100%);" -->
+<body >
+    <div class="jumbotron" style="background: linear-gradient(90deg, rgba(142,169,255,1) 0%, rgba(173,213,255,1) 31%, rgba(103,142,211,1) 67%, rgba(20,81,173,1) 100%);
+    ">
+        <div class="container">
+          <h1>FizzoBuddy</h1>
+          <!-- <p class="lead">FizzioBuddy</p> -->
+          <!-- <p>An assisitive videochat app for Physios </p> -->
+        </div>
+      </div>
+    
+    <div class="container-fluid ">
         <div class="row h-10 w-100">
             <div class="col">
-                <button id="poseNetButton">PoseNet (Less accurate, faster)</button>
-                <button id="resNetButton">resNet (More accurate; slow)</button>
+                <button id="poseNetButton" class="btn btn-light">PoseNet (Less accurate; faster)</button>
+                <button id="resNetButton" class="btn btn-light">resNet (More accurate; slower)</button>
                 <!-- disable does not work yet -->
                 <!-- breaks if you remove diable button without removing event listeners in main.js -->
-                <button id="disablePosenet">Disable PoseNet</button>
+                <button id="disablePosenet" class="btn btn-light">Disable PoseNet</button>
             </div>
         </div>
         <div class="row h-90 w-100">
@@ -48,33 +57,56 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Shoulder
-                  <span id="shoulder" class="badge badge-primary badge-pill"> </span>
-                  <div style="float: left; border: 1px solid grey;">
-                    <button id="shoulder_start">Start</button>
-                    <button id="shoulder_stop">Stop</button>
-                </div>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Elbow  
-                  <span id="elbow" class="badge badge-primary badge-pill"> </span>
-                  <div style="float: left; border: 1px solid grey;">
-                    <button id="elbow_start">Start</button>
-                    <button id="elbow_stop">Stop</button>
-                </div>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Cervical
-                  <span id="cervical" class="badge badge-primary badge-pill"> </span>
-                  <div style="float: left; border: 1px solid grey;">
-                    <button id="cervical_start">Start</button>
-                    <button id="cervical_stop">Stop</button>
-                </div>
-                </li>
-              </ul>
+        <div class="row h-90 w-100">
+            <div class="col-4">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                        Cervical
+                        <span id="cervical" class="badge badge-primary badge-pill"> </span>
+                        <div style="float: left; border: 1px solid grey;">
+                          <button id="cervical_start">Start</button>
+                          <button id="cervical_stop">Stop</button>
+                      </div>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                      Shoulder
+                      <span id="shoulder" class="badge badge-primary badge-pill"> </span>
+                      <div style="float: left; border: 1px solid grey;">
+                        <button id="shoulder_start">Start</button>
+                        <button id="shoulder_stop">Stop</button>
+                    </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                      Elbow  
+                      <span id="elbow" class="badge badge-primary badge-pill"> </span>
+                      <div style="float: left; border: 1px solid grey;">
+                        <button id="elbow_start">Start</button>
+                        <button id="elbow_stop">Stop</button>
+                    </div>
+                    </li>
+                  </ul>
+            </div>
+
+            <div class="col-4">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                      Hip
+                      <span id="hip" class="badge badge-primary badge-pill"> </span>
+                      <div style="float: left; border: 1px solid grey;">
+                        <button id="hip_start">Start</button>
+                        <button id="hip_stop">Stop</button>
+                    </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                      Knee  
+                      <span id="knee" class="badge badge-primary badge-pill"> </span>
+                      <div style="float: left; border: 1px solid grey;">
+                        <button id="knee_start">Start</button>
+                        <button id="knee_stop">Stop</button>
+                    </div>
+                    </li>
+                  </ul>
+            </div>
         </div>
         
     </div>
