@@ -8,14 +8,13 @@
     <!-- Load Posenet -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="main.css" rel="stylesheet">
-    <!-- <script src="poseNet.js.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link href="main.css" rel="stylesheet"> -->
 </head>
 <!-- style="background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(176,174,174,1) 100%);" -->
 <body >
-    <div class="jumbotron" style="background: linear-gradient(90deg, rgba(142,169,255,1) 0%, rgba(173,213,255,1) 31%, rgba(103,142,211,1) 67%, rgba(20,81,173,1) 100%);
-    ">
+    <div class="jumbotron" style="background: linear-gradient(90deg, rgba(142,169,255,1) 0%, rgba(173,213,255,1) 31%, rgba(103,142,211,1) 67%, rgba(20,81,173,1) 100%);">
         <div class="container">
           <h1>FizzoBuddy</h1>
           <!-- <p class="lead">FizzioBuddy</p> -->
@@ -57,61 +56,125 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button id="cervicalDrop" class="dropdown-item">Cervical</button>
+                <button id="rightShoulderDrop" class="dropdown-item">Right Shoulder</button>
+                <button id="leftShoulderDrop" class="dropdown-item">Left Shoulder</button>
+                <button id="rightElbowDrop" class="dropdown-item">Right Elbow</button>
+                <button id="leftElbowDrop" class="dropdown-item">Left Elbow</button>
+                <button id="rightHipDrop" class="dropdown-item">Right Hip</button>
+                <button id="leftHipDrop" class="dropdown-item">Left Hip</button>
+                <button id="rightKneeDrop" class="dropdown-item">Right Knee</button>
+                <button id="leftKneeDrop" class="dropdown-item">Left Knee</button>
+            </div> -->
+          </div>
         <div class="row h-90 w-100">
-            <div class="col-4">
+            <div class="col-3">
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
                         Cervical
                         <span id="cervical" class="badge badge-primary badge-pill"> </span>
                         <div style="float: left; border: 1px solid grey;">
                           <button id="cervical_start">Start</button>
                           <button id="cervical_stop">Stop</button>
-                      </div>
+                      </div> -->
                       </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
-                      Shoulder
-                      <span id="shoulder" class="badge badge-primary badge-pill"> </span>
+                      R. Shoulder
+                      <span id="Rshoulder" class="badge badge-primary badge-pill"> </span>
+                      <span id="Rshoulder_out" class="badge badge-primary badge-pill"> </span>
                       <div style="float: left; border: 1px solid grey;">
-                        <button id="shoulder_start">Start</button>
-                        <button id="shoulder_stop">Stop</button>
+                        <button id="Rshoulder_start">Start</button>
+                        <button id="Rshoulder_stop">Stop</button>
                     </div>
-                    </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
-                      Elbow  
-                      <span id="elbow" class="badge badge-primary badge-pill"> </span>
-                      <div style="float: left; border: 1px solid grey;">
-                        <button id="elbow_start">Start</button>
-                        <button id="elbow_stop">Stop</button>
-                    </div>
+                        L. Shoulder
+                        <span id="Lshoulder" class="badge badge-primary badge-pill"> </span>
+                        <span id="Lshoulder_out" class="badge badge-primary badge-pill"> </span>
+                        <div style="float: left; border: 1px solid grey;">
+                          <button id="Lshoulder_start">Start</button>
+                          <button id="Lshoulder_stop">Stop</button>
+                      </div>
                     </li>
                   </ul>
             </div>
 
-            <div class="col-4">
+            <div class="col-3">
+                <ul class="list-group"></ul>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                        R. Elbow  
+                        <span id="Relbow" class="badge badge-primary badge-pill"> </span>
+                        <span id="Relbow_out" class="badge badge-primary badge-pill"> </span>
+                        <div style="float: left; border: 1px solid grey;">
+                        <button id="Relbow_start">Start</button>
+                        <button id="Relbow_stop">Stop</button>
+                    </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                        L. Elbow  
+                        <span id="Lelbow" class="badge badge-primary badge-pill"> </span>
+                        <span id="Lelbow_out" class="badge badge-primary badge-pill"> </span>
+                        <div style="float: left; border: 1px solid grey;">
+                            <button id="Lelbow_start">Start</button>
+                            <button id="Lelbow_stop">Stop</button>
+                        </div>
+                </ul>
+            </div>
+
+            <div class="col-3">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
-                      Hip
-                      <span id="hip" class="badge badge-primary badge-pill"> </span>
+                      R. Hip
+                      <span id="Rhip" class="badge badge-primary badge-pill"> </span>
+                      <span id="Rhip_out" class="badge badge-primary badge-pill"> </span>
                       <div style="float: left; border: 1px solid grey;">
-                        <button id="hip_start">Start</button>
-                        <button id="hip_stop">Stop</button>
+                        <button id="Rhip_start">Start</button>
+                        <button id="Rhip_stop">Stop</button>
                     </div>
-                    </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
-                      Knee  
-                      <span id="knee" class="badge badge-primary badge-pill"> </span>
-                      <div style="float: left; border: 1px solid grey;">
-                        <button id="knee_start">Start</button>
-                        <button id="knee_stop">Stop</button>
-                    </div>
+                        L. Hip  
+                        <span id="Lhip" class="badge badge-primary badge-pill"> </span>
+                        <span id="Lhip_out" class="badge badge-primary badge-pill"> </span>
+                        <div style="float: left; border: 1px solid grey;">
+                          <button id="Lhip_start">Start</button>
+                          <button id="Lhip_stop">Stop</button>
+                      </div>
                     </li>
                   </ul>
+            </div>
+            <div class="col-3">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                        R. Knee  
+                        <span id="Rknee" class="badge badge-primary badge-pill"> </span>
+                        <span id="Rknee_out" class="badge badge-primary badge-pill"> </span>
+                        <div style="float: left; border: 1px solid grey;">
+                          <button id="Rknee_start">Start</button>
+                          <button id="Rknee_stop">Stop</button>
+                      </div>
+                      <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgb(247, 247, 247); border-radius: 25px;">
+                          L. Knee  
+                          <span id="Lknee" class="badge badge-primary badge-pill"> </span>
+                          <span id="Lknee_out" class="badge badge-primary badge-pill"> </span>
+                          <div style="float: left; border: 1px solid grey;">
+                            <button id="Lknee_start">Start</button>
+                            <button id="Lknee_stop">Stop</button>
+                        </div>
+                      </li>
+                </ul>
+
             </div>
         </div>
         
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="bundle.js"></script>
 </body>

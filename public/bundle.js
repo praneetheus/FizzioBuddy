@@ -51242,51 +51242,143 @@ let resNetRunning = false;
 let MobileNetRunning = false; 
 
 // getting start & stop buttons
-const shoulderStartBtn = document.querySelector('#shoulder_start')
-const shoulderStopBtn = document.querySelector('#shoulder_stop')
+// const cervicalStartBtn = document.querySelector('#cervical_start')
+// const cervicalStopBtn = document.querySelector('#cervical_stop')
 
-const elbowStartBtn = document.querySelector('#elbow_start')
-const elbowStopBtn = document.querySelector('#elbow_stop')
+// Shoulder 
+const RshoulderStartBtn = document.querySelector('#Rshoulder_start')
+const RshoulderStopBtn = document.querySelector('#Rshoulder_stop')
 
-const cervicalStartBtn = document.querySelector('#cervical_start')
-const cervicalStopBtn = document.querySelector('#cervical_stop')
+const LshoulderStartBtn = document.querySelector('#Lshoulder_start')
+const LshoulderStopBtn = document.querySelector('#Lshoulder_stop')
+
+// elbow
+const RelbowStartBtn = document.querySelector('#Relbow_start')
+const RelbowStopBtn = document.querySelector('#Relbow_stop')
+
+const LelbowStartBtn = document.querySelector('#Lelbow_start')
+const LelbowStopBtn = document.querySelector('#Lelbow_stop')
+
+// hip
+const RhipStartBtn = document.querySelector('#Rhip_start')
+const RhipStopBtn = document.querySelector('#Rhip_stop')
+
+const LhipStartBtn = document.querySelector('#Lhip_start')
+const LhipStopBtn = document.querySelector('#Lhip_stop')
+
+// knee
+const RkneeStartBtn = document.querySelector('#Rknee_start')
+const RkneeStopBtn = document.querySelector('#Rknee_stop')
+
+const LkneeStartBtn = document.querySelector('#Lknee_start')
+const LkneeStopBtn = document.querySelector('#Lknee_stop')
 
 // getting start & stop end
 
 // getting range of motion value from span text fields
-// for neck
-let neckStartVal;
-cervicalStartBtn.addEventListener('click', () => {
-  neckStartVal = document.getElementById('cervical').innerHTML;
-})
+// // for neck
+// let neckStartVal;
+// cervicalStartBtn.addEventListener('click', () => {
+//   neckStartVal = document.getElementById('cervical').innerHTML;
+// })
 
-cervicalStopBtn.addEventListener('click', () => {
-  let neckStoptVal = document.getElementById('cervical').innerHTML;
-  console.log(Math.abs(neckStartVal - neckStoptVal));
-})
+// cervicalStopBtn.addEventListener('click', () => {
+//   let neckStoptVal = document.getElementById('cervical').innerHTML;
+//   console.log(Math.abs(neckStartVal - neckStoptVal));
+// })
 
 // for shoulder
-let shoulderStartVal;
-shoulderStartBtn.addEventListener('click', () => {
-  shoulderStartVal = document.getElementById('shoulder').innerHTML;
+let RshoulderStartVal;
+RshoulderStartBtn.addEventListener('click', () => {
+  RshoulderStartVal = document.getElementById('Rshoulder').innerHTML;
+
 })
 
-shoulderStopBtn.addEventListener('click', () => {
-  let shoulderStoptVal = document.getElementById('shoulder').innerHTML;
-  console.log(Math.abs(shoulderStartVal - shoulderStoptVal));
+RshoulderStopBtn.addEventListener('click', () => {
+  let RshoulderStoptVal = document.getElementById('Rshoulder').innerHTML;
+  document.getElementById("Rshoulder_out").innerHTML = Math.round(Math.abs(RshoulderStoptVal - RshoulderStartVal)*100)/100;
+  // console.log(Math.abs(RshoulderStartVal - RshoulderStoptVal));
+})
+
+let LshoulderStartVal;
+LshoulderStartBtn.addEventListener('click', () => {
+  LshoulderStartVal = document.getElementById('Lshoulder').innerHTML;
+})
+
+LshoulderStopBtn.addEventListener('click', () => {
+  let LshoulderStoptVal = document.getElementById('Lshoulder').innerHTML;
+  document.getElementById("Lshoulder_out").innerHTML = Math.round(Math.abs(LshoulderStoptVal - LshoulderStartVal)*100)/100;
+  // console.log(Math.abs(LshoulderStartVal - LshoulderStoptVal));
 })
 
 // for elbow
-let elbowStartVal;
-elbowStartBtn.addEventListener('click', () => {
-  elbowStartVal = document.getElementById('elbow').innerHTML;
+let RelbowStartVal;
+RelbowStartBtn.addEventListener('click', () => {
+  RelbowStartVal = document.getElementById('Relbow').innerHTML;
 })
 
-elbowStopBtn.addEventListener('click', () => {
-  let elbowStoptVal = document.getElementById('elbow').innerHTML;
-  console.log(Math.abs(elbowStartVal - elbowStoptVal));
+RelbowStopBtn.addEventListener('click', () => {
+  let RelbowStoptVal = document.getElementById('Relbow').innerHTML;
+  document.getElementById("Relbow_out").innerHTML = Math.round(Math.abs(RelbowStoptVal - RelbowStartVal)*100)/100;
+  // console.log(Math.abs(RelbowStartVal - RelbowStoptVal));
 })
 
+let LelbowStartVal;
+LelbowStartBtn.addEventListener('click', () => {
+  LelbowStartVal = document.getElementById('Lelbow').innerHTML;
+})
+
+LelbowStopBtn.addEventListener('click', () => {
+  let LelbowStoptVal = document.getElementById('Lelbow').innerHTML;
+  document.getElementById("Lelbow_out").innerHTML = Math.round(Math.abs(LelbowStoptVal - LelbowStartVal)*100)/100;
+  // console.log(Math.abs(LelbowStartVal - LelbowStoptVal));
+})
+
+// for hip
+let RhipStartVal;
+RhipStartBtn.addEventListener('click', () => {
+  RhipStartVal = document.getElementById('Rhip').innerHTML;
+})
+
+RhipStopBtn.addEventListener('click', () => {
+  let RhipStoptVal = document.getElementById('Rhip').innerHTML;
+  document.getElementById("Rhip_out").innerHTML = Math.round(Math.abs(RhipStoptVal - RhipStartVal)*100)/100;
+  // console.log(Math.abs(RhipStartVal - RhipStoptVal));
+})
+
+let LhipStartVal;
+LhipStartBtn.addEventListener('click', () => {
+  LhipStartVal = document.getElementById('Lhip').innerHTML;
+})
+
+LhipStopBtn.addEventListener('click', () => {
+  let LhipStoptVal = document.getElementById('Lhip').innerHTML;
+  document.getElementById("Lhip_out").innerHTML = Math.round(Math.abs(LhipStoptVal - LhipStartVal)*100)/100;
+  // console.log(Math.abs(LhipStartVal - LhipStoptVal));
+})
+
+// for knee
+let RkneeStartVal;
+RkneeStartBtn.addEventListener('click', () => {
+  RkneeStartVal = document.getElementById('Rknee').innerHTML;
+})
+
+RkneeStopBtn.addEventListener('click', () => {
+  let RkneeStoptVal = document.getElementById('Rknee').innerHTML;
+  document.getElementById("Rknee_out").innerHTML = Math.round(Math.abs(RkneeStoptVal - RkneeStartVal)*100)/100;
+  // console.log(Math.abs(RkneeStartVal - RkneeStoptVal));
+})
+
+let LkneeStartVal;
+LkneeStartBtn.addEventListener('click', () => {
+  LkneeStartVal = document.getElementById('Lknee').innerHTML;
+})
+
+LkneeStopBtn.addEventListener('click', () => {
+  let LkneeStoptVal = document.getElementById('Lknee').innerHTML;
+  document.getElementById("Lknee_out").innerHTML = Math.round(Math.abs(LkneeStoptVal - LkneeStartVal)*100)/100;
+  // console.log(Math.abs(LkneeStartVal - LkneeStoptVal));
+})
 // end getting span text fields
 
 let net;
@@ -51314,8 +51406,9 @@ const pnet = {
     },
     net: null,
   };
-
-  function detectPoseInRealTime(vid, net) {
+  
+  
+  function detectPoseInRealTime(vid) {
     const canvas = document.getElementById('peerOutput');
     const vi = document.getElementById('peerVideo');
     // document.getElementById("pee").style.color = "blue";
@@ -51331,15 +51424,16 @@ const pnet = {
     canvas.width = videoWidth;
     canvas.height = videoHeight;
 
-    // if (disablePosenet && pnet.net == null) {
-    //   // ctx.clearRect(0, 0, videoWidth, videoHeight);
+    if (disablePosenet && pnet.net == null) {
+      // ctx.clearRect(0, 0, videoWidth, videoHeight);
+      // vi.play();
 
-    //   ctx.save();
-    //   ctx.scale(-1, 1);
-    //   ctx.translate(-videoWidth, 0);
-    //   ctx.drawImage(vid, 0, 0, videoWidth, videoHeight);
-    //   ctx.restore();
-    // }
+      ctx.save();
+      ctx.scale(-1, 1);
+      ctx.translate(-videoWidth, 0);
+      ctx.drawImage(vid, 0, 0, videoWidth, videoHeight);
+      ctx.restore();
+    }
     
     if (!disablePosenet) {
       async function poseDetectionFrame() {
@@ -51384,13 +51478,31 @@ const pnet = {
             // console.log("inside draw keypoint");
             let parts = [];
             let reqPartList = [];
-            let elbowAngle;
+            // let cervicalAngel;
+            // let cervicalAngelReq = ['nose', 'leftShoulder', 'rightShoulder'];
+            
             // these have to be in order
-            let elbowAngleReq = ['rightShoulder', 'rightElbow', 'rightWrist'];
-            let shoulderAngle;
-            let shoulderAngleReq = ['rightShoulder', 'rightElbow', 'rightHip'];
-            let cervicalAngel;
-            let cervicalAngelReq = ['nose', 'leftShoulder', 'rightShoulder'];
+            let RshoulderAngle;
+            let LshoulderAngle;
+            let RshoulderAngleReq = ['rightShoulder', 'rightElbow', 'rightHip'];
+            let LshoulderAngleReq = ['leftShoulder', 'leftElbow', 'leftHip'];
+
+            let RelbowAngle;
+            let LelbowAngle;
+            let RelbowAngleReq = ['rightShoulder', 'rightElbow', 'rightWrist'];
+            let LelbowAngleReq = ['leftShoulder', 'leftElbow', 'leftWrist'];
+
+            let RhipAngle;
+            let LhipAngle;
+            let RhipAngleReq = ['rightShoulder', 'rightHip', 'rightKnee'];
+            let LhipAngleReq = ['leftShoulder', 'leftHip', 'leftKnee'];
+
+            let RkneeAngle;
+            let LkneeAngle;
+            let RkneeAngleReq = ['rightHip', 'rightKnee', 'rightAnkle'];
+            let LkneeAngleReq = ['leftHip', 'leftKnee', 'leftAnkle'];
+
+
             for (let i = 0; i < keypoints.length; i++) {
                 const keypoint = keypoints[i];
                 if (keypoint.score < minConfidence) {
@@ -51403,38 +51515,93 @@ const pnet = {
                 parts.push({part: keypoint.part, x: x, y: y});
                 reqPartList.push(keypoint.part);
                 // console.log(reqPartList);
-  
-                if (hasSubArray(reqPartList, elbowAngleReq)) {
-                  // console.log("i am running")
-                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
-                  let centerIndex = parts.findIndex(p => p.part == "rightElbow")
-                  let p1index = parts.findIndex(p => p.part == "rightWrist")
-                  elbowAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
-                  elbowAngle = elbowAngle * (180/pi) 
-                  document.getElementById("elbow").innerHTML = Math.round(elbowAngle*100)/100;
-                  // console.log(elbowAngle);
-                  // console.log(calculateAngle(parts[p0index], parts[p1index], parts[centerIndex]));
-                }
-  
-                if (hasSubArray(reqPartList, cervicalAngelReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
-                  let centerIndex = parts.findIndex(p => p.part == "nose")
-                  let p1index = parts.findIndex(p => p.part == "rightShoulder")
-                  cervicalAngel = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
-                  cervicalAngel = cervicalAngel * (180/pi) 
-                  document.getElementById("cervical").innerHTML = Math.round(cervicalAngel*100)/100;
-                  // console.log(cervicalAngel);
-                }
-  
-                if (hasSubArray(reqPartList, shoulderAngleReq)) {
+
+                // calculate shoulder angle
+                if (hasSubArray(reqPartList, RshoulderAngleReq)) {
                   let p0index = parts.findIndex(p => p.part == "rightElbow")
                   let centerIndex = parts.findIndex(p => p.part == "rightShoulder")
                   let p1index = parts.findIndex(p => p.part == "rightHip")
-                  shoulderAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
-                  shoulderAngle = shoulderAngle * (180/pi) 
-                  document.getElementById("shoulder").innerHTML = Math.round(shoulderAngle*100)/100;
-                  // console.log(shoulderAngle);
+                  RshoulderAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  RshoulderAngle = RshoulderAngle * (180/pi) 
+                  document.getElementById("Rshoulder").innerHTML = Math.round(RshoulderAngle*100)/100;
                 }
+
+                if (hasSubArray(reqPartList, LshoulderAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "leftElbow")
+                  let centerIndex = parts.findIndex(p => p.part == "leftShoulder")
+                  let p1index = parts.findIndex(p => p.part == "leftHip")
+                  LshoulderAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  LshoulderAngle = LshoulderAngle * (180/pi) 
+                  document.getElementById("Lshoulder").innerHTML = Math.round(LshoulderAngle*100)/100;
+                }
+  
+                // calculate elbow angles
+                if (hasSubArray(reqPartList, RelbowAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "rightElbow")
+                  let p1index = parts.findIndex(p => p.part == "rightWrist")
+                  RelbowAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  RelbowAngle = RelbowAngle * (180/pi) 
+                  document.getElementById("Relbow").innerHTML = Math.round(RelbowAngle*100)/100;
+                }
+
+                if (hasSubArray(reqPartList, LelbowAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "leftElbow")
+                  let p1index = parts.findIndex(p => p.part == "leftWrist")
+                  LelbowAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  LelbowAngle = LelbowAngle * (180/pi) 
+                  document.getElementById("Lelbow").innerHTML = Math.round(LelbowAngle*100)/100;
+                }
+
+                // hip
+                if (hasSubArray(reqPartList, RhipAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "rightHip")
+                  let p1index = parts.findIndex(p => p.part == "rightKnee")
+                  RhipAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  RhipAngle = RhipAngle * (180/pi) 
+                  document.getElementById("Rhip").innerHTML = Math.round(RhipAngle*100)/100;
+                }
+
+                if (hasSubArray(reqPartList, LhipAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let centerIndex = parts.findIndex(p => p.part == "leftHip")
+                  let p1index = parts.findIndex(p => p.part == "leftKnee")
+                  LhipAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  LhipAngle = LhipAngle * (180/pi) 
+                  document.getElementById("Lhip").innerHTML = Math.round(LhipAngle*100)/100;
+                }
+
+                // for knee
+                if (hasSubArray(reqPartList, RkneeAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "rightHip")
+                  let centerIndex = parts.findIndex(p => p.part == "rightKnee")
+                  let p1index = parts.findIndex(p => p.part == "rightAnkle")
+                  RkneeAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  RkneeAngle = RkneeAngle * (180/pi) 
+                  document.getElementById("Rknee").innerHTML = Math.round(RkneeAngle*100)/100;
+                }
+
+                if (hasSubArray(reqPartList, LkneeAngleReq)) {
+                  let p0index = parts.findIndex(p => p.part == "leftHip")
+                  let centerIndex = parts.findIndex(p => p.part == "leftKnee")
+                  let p1index = parts.findIndex(p => p.part == "leftAnkle")
+                  LkneeAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                  LkneeAngle = LkneeAngle * (180/pi) 
+                  document.getElementById("Lknee").innerHTML = Math.round(LkneeAngle*100)/100;
+                }
+
+
+                // if (hasSubArray(reqPartList, cervicalAngelReq)) {
+                //   let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                //   let centerIndex = parts.findIndex(p => p.part == "nose")
+                //   let p1index = parts.findIndex(p => p.part == "rightShoulder")
+                //   cervicalAngel = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
+                //   cervicalAngel = cervicalAngel * (180/pi) 
+                //   document.getElementById("cervical").innerHTML = Math.round(cervicalAngel*100)/100;
+                // //   // console.log(cervicalAngel);
+                // }
   
                 // console.log(parts); 
                 // console.log(ctx);
@@ -51475,7 +51642,7 @@ const pnet = {
       quantBytes: pnet.input.quantBytes
     });
     
-    detectPoseInRealTime(vid, net);
+    detectPoseInRealTime(vid);
   }
 
   async function loadResNet(vid) {
@@ -51486,7 +51653,7 @@ const pnet = {
       multiplier: null,
       quantBytes: 2
     });
-    detectPoseInRealTime(vid, net);
+    detectPoseInRealTime(vid);
   }
 //   end posenet
 
@@ -51557,9 +51724,9 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         })
 
         function returnPeerVideo() {
-            let video = document.getElementById('peerVideo');
+            return document.getElementById('peerVideo');
             // video.play();
-            return video;
+            // return video;
           }
 
         //for peer of type init
