@@ -10,7 +10,20 @@ With Posenet, we can potentially eliminate the need for tools to measure range o
 
 # npm install
 - to install node modules required for the app
-# npm run watch
-- to convert main.js into bundle.js
+
 # npm start
 - to start the app on a local machine
+
+If running the application locally, the application requires to be loaded on 2 different browsers (sessions) in order to show both the client and physiotherapist positions. For example, a tab running the application on a regular session of Google Chrome (using local host) as well as another tab of the application running on Mozilla Firefox (Chrome Incogntio tab, etc.)
+
+To activate real-time detection, click on PoseNet button (resNet buttion will load resNet which is more accurate but slower)
+Once PoseNet loads, it requires 3 joints to be visible to calculate joint angles.
+For shoulder -> hip, shoulder and elbow need to be visible
+For elbow -> shoulder, elbow, and wrist need to be visible
+For hip -> shoulder, hip, and knee need to be visible
+for knee -> hip, knee, and ankle need to be visible
+
+Use 'start' button to anchor the points and 'stop' button at the end range to calculate the range of motion between 'start' and 'stop' points 
+
+
+The application is also deployed on Heroku at this link: https://fizziobuddy.herokuapp.com/, which again requires 2 different users to host an active session. This app only supports 2 people at a time. 
