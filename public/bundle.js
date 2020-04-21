@@ -51681,6 +51681,13 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             peer.on('stream', function (stream) {
                 CreateVideo(stream)
             })
+          
+            peer.on('data', function (data) {
+              let decodedData = new TextDecoder('utf-8').decode(data)
+              let peervideo = document.querySelector('#peerVideo')
+              peervideo.style.filter = decodedData
+          })
+
             return peer
         }
       
