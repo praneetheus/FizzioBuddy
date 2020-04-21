@@ -51384,6 +51384,8 @@ LkneeStopBtn.addEventListener('click', () => {
 let net;
 let color = 'red';
 
+
+// setting input parameters for loading poseNet model
 const pnet = {
     algorithm: 'single-pose',
     input: {
@@ -51575,18 +51577,18 @@ const pnet = {
 
                 // for knee
                 if (hasSubArray(reqPartList, RkneeAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "rightHip")
+                  let p0index = parts.findIndex(p => p.part == "rightAnkle")
                   let centerIndex = parts.findIndex(p => p.part == "rightKnee")
-                  let p1index = parts.findIndex(p => p.part == "rightAnkle")
+                  let p1index = parts.findIndex(p => p.part == "rightHip")
                   RkneeAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   RkneeAngle = RkneeAngle * (180/pi) 
                   document.getElementById("Rknee").innerHTML = Math.round(RkneeAngle*100)/100;
                 }
 
                 if (hasSubArray(reqPartList, LkneeAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftHip")
+                  let p0index = parts.findIndex(p => p.part == "leftAnkle")
                   let centerIndex = parts.findIndex(p => p.part == "leftKnee")
-                  let p1index = parts.findIndex(p => p.part == "leftAnkle")
+                  let p1index = parts.findIndex(p => p.part == "leftHip")
                   LkneeAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   LkneeAngle = LkneeAngle * (180/pi) 
                   document.getElementById("Lknee").innerHTML = Math.round(LkneeAngle*100)/100;
