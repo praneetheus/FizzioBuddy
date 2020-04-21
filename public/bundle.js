@@ -51556,18 +51556,18 @@ const pnet = {
 
                 // hip
                 if (hasSubArray(reqPartList, RhipAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
+                  let p0index = parts.findIndex(p => p.part == "rightKnee")
                   let centerIndex = parts.findIndex(p => p.part == "rightHip")
-                  let p1index = parts.findIndex(p => p.part == "rightKnee")
+                  let p1index = parts.findIndex(p => p.part == "rightShoulder")
                   RhipAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   RhipAngle = RhipAngle * (180/pi) 
                   document.getElementById("Rhip").innerHTML = Math.round(RhipAngle*100)/100;
                 }
 
                 if (hasSubArray(reqPartList, LhipAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let p0index = parts.findIndex(p => p.part == "leftKnee")
                   let centerIndex = parts.findIndex(p => p.part == "leftHip")
-                  let p1index = parts.findIndex(p => p.part == "leftKnee")
+                  let p1index = parts.findIndex(p => p.part == "leftShoulder")
                   LhipAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   LhipAngle = LhipAngle * (180/pi) 
                   document.getElementById("Lhip").innerHTML = Math.round(LhipAngle*100)/100;

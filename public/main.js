@@ -154,6 +154,8 @@ LkneeStopBtn.addEventListener('click', () => {
 let net;
 let color = 'red';
 
+
+// setting input parameters for loading poseNet model
 const pnet = {
     algorithm: 'single-pose',
     input: {
@@ -326,18 +328,18 @@ const pnet = {
 
                 // hip
                 if (hasSubArray(reqPartList, RhipAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "rightShoulder")
+                  let p0index = parts.findIndex(p => p.part == "rightKnee")
                   let centerIndex = parts.findIndex(p => p.part == "rightHip")
-                  let p1index = parts.findIndex(p => p.part == "rightKnee")
+                  let p1index = parts.findIndex(p => p.part == "rightShoulder")
                   RhipAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   RhipAngle = RhipAngle * (180/pi) 
                   document.getElementById("Rhip").innerHTML = Math.round(RhipAngle*100)/100;
                 }
 
                 if (hasSubArray(reqPartList, LhipAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftShoulder")
+                  let p0index = parts.findIndex(p => p.part == "leftKnee")
                   let centerIndex = parts.findIndex(p => p.part == "leftHip")
-                  let p1index = parts.findIndex(p => p.part == "leftKnee")
+                  let p1index = parts.findIndex(p => p.part == "leftShoulder")
                   LhipAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   LhipAngle = LhipAngle * (180/pi) 
                   document.getElementById("Lhip").innerHTML = Math.round(LhipAngle*100)/100;
@@ -345,18 +347,18 @@ const pnet = {
 
                 // for knee
                 if (hasSubArray(reqPartList, RkneeAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "rightHip")
+                  let p0index = parts.findIndex(p => p.part == "rightAnkle")
                   let centerIndex = parts.findIndex(p => p.part == "rightKnee")
-                  let p1index = parts.findIndex(p => p.part == "rightAnkle")
+                  let p1index = parts.findIndex(p => p.part == "rightHip")
                   RkneeAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   RkneeAngle = RkneeAngle * (180/pi) 
                   document.getElementById("Rknee").innerHTML = Math.round(RkneeAngle*100)/100;
                 }
 
                 if (hasSubArray(reqPartList, LkneeAngleReq)) {
-                  let p0index = parts.findIndex(p => p.part == "leftHip")
+                  let p0index = parts.findIndex(p => p.part == "leftAnkle")
                   let centerIndex = parts.findIndex(p => p.part == "leftKnee")
-                  let p1index = parts.findIndex(p => p.part == "leftAnkle")
+                  let p1index = parts.findIndex(p => p.part == "leftHip")
                   LkneeAngle = calculateAngle(parts[p0index], parts[centerIndex], parts[p1index]);
                   LkneeAngle = LkneeAngle * (180/pi) 
                   document.getElementById("Lknee").innerHTML = Math.round(LkneeAngle*100)/100;
